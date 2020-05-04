@@ -314,7 +314,7 @@ void CTFWeaponBase::Equip( CBaseCombatCharacter *pOwner )
 		!= hHandle )
 	{
 		pTFOwner->DropWeapon( pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()].Get(),
-		false, false, 
+		true, false, 
 		pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()]->m_iClip1,
 		pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()]->m_iReserveAmmo );
 		UTIL_Remove( pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()] );
