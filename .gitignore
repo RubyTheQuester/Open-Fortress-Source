@@ -112,3 +112,12 @@ ipch
 
 # These makefiles are hand-made, and required for linux builds.
 !/src/devtools/*.mak
+src/utils/vrad/Release/vrad_dll.dll
+src/utils/vrad/Release/vrad_dll.lib
+src/utils/vrad/Release/vrad_dll.pdb
+src/utils/vrad/Release/vrad_dll.lib
+src/utils/vrad/Release/vrad_dll.pdb
+src/utils/vrad/Release/vrad_dll.pdb
+*.pdb
+src/utils/vrad/Release/vrad_dll.lib
+src/utils/vrad/Release/vrad_dll.pdb
