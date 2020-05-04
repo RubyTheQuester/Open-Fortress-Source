@@ -6459,9 +6459,30 @@ void CTFPlayer::DropWeapon( CTFWeaponBase *pActiveWeapon, bool thrown, bool diss
 
 			AngularImpulse angImpulse( 0, random->RandomFloat( 0, 100 ), 0 );
 			AngularImpulse angImp( 200, 200, 200 );
-//			if ( thrown )
-//				pDroppedWeapon->VPhysicsGetObject()->SetVelocityInstantaneous( &pVecThrowDir, &angImp );
-//			else
+			if (thrown)
+			{
+				// This makes it so it always get thrown upwards
+				Vector vecImpulse(0.0f, 0.0f, 150.0f);
+
+				Vector vecMuzzlePos = this->Weapon_ShootPosition();
+				Vector forward;
+				this->EyeVectors(&forward);
+				Vector vecEndPos = vecMuzzlePos + (forward * 256);
+
+				trace_t    trace;
+				UTIL_TraceLine(vecMuzzlePos, vecEndPos, (MASK_SHOT & ~CONTENTS_WINDOW), this, COLLISION_GROUP_NONE, &trace);
+
+				Vector vecTarget = trace.endpos;
+				Vector vecDir = vecTarget - this->GetAbsOrigin();
+				VectorNormalize(vecDir);
+				float flSpeed = 300;
+				vecDir *= flSpeed;
+
+				Vector vecThrowWeapon = vecDir += vecImpulse;
+
+				pDroppedWeapon->VPhysicsGetObject()->SetVelocityInstantaneous(&vecThrowWeapon, &angImp);
+			}
+			else
 				pDroppedWeapon->VPhysicsGetObject()->SetVelocityInstantaneous( &vecImpulse, &angImpulse );
 
 		}

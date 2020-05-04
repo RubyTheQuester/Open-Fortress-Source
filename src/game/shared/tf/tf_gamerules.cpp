@@ -3206,7 +3206,7 @@ void CTFGameRules::RadiusDamage( const CTakeDamageInfo &info, const Vector &vecS
 										&& pPlayer->m_hWeaponInSlot[pWeapon->GetSlot()][pWeapon->GetPosition()] != hHandle)
 									{
 										pPlayer->DropWeapon( pPlayer->m_hWeaponInSlot[pWeapon->GetSlot()][pWeapon->GetPosition()].Get(),
-										false, false, 
+										true, false, 
 										pPlayer->m_hWeaponInSlot[pWeapon->GetSlot()][pWeapon->GetPosition()]->m_iClip1,
 										pPlayer->m_hWeaponInSlot[pWeapon->GetSlot()][pWeapon->GetPosition()]->m_iReserveAmmo );
 										UTIL_Remove( pPlayer->m_hWeaponInSlot[pWeapon->GetSlot()][pWeapon->GetPosition()] );

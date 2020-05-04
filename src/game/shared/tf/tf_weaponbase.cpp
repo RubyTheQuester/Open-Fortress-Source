@@ -314,7 +314,7 @@ void CTFWeaponBase::Equip( CBaseCombatCharacter *pOwner )
 		!= hHandle )
 	{
 		pTFOwner->DropWeapon( pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()].Get(),
-		false, false, 
+		true, false, 
 		pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()]->m_iClip1,
 		pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()]->m_iReserveAmmo );
 		UTIL_Remove( pTFOwner->m_hWeaponInSlot[GetSlot()][GetPosition()] );
@@ -825,7 +825,7 @@ bool CTFWeaponBase::Holster( CBaseCombatWeapon *pSwitchingTo )
 	if ( pOwner && GetTFWpnData().m_bDropOnNoAmmo && m_iClip1 <= 0 && m_iReserveAmmo<= 0 )
 	{
 #ifdef GAME_DLL 
-		pOwner->DropWeapon( this, false, true, 0, 0 );
+		pOwner->DropWeapon( this, true, true, 0, 0 );
 		UTIL_Remove ( this );
 #endif
 	}	
