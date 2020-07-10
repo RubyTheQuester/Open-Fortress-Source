@@ -190,6 +190,7 @@ public:
 
 	void	Burn( CTFPlayer *pPlayer, float flTime );
 	void	Poison(CTFPlayer *pPlayer, float flTime);
+	void	Tranq(CTFPlayer *pPlayer, float flTime, float flSpeed, float flEffects);
 
 	// Weapons.
 	CTFWeaponBase *GetActiveTFWeapon() const;
@@ -373,6 +374,11 @@ private:
 	CHandle<CTFPlayer>		m_hPoisonAttacker;
 	float					m_flPoisonTime;
 	float					m_flPoisonRemoveTime;
+
+	float					m_flTranqTime;
+	float					m_flTranqRemoveTime;
+	float					m_flTranqSlowness;
+	float					m_flTranqEffects;
 
 
 	float m_flDisguiseCompleteTime;

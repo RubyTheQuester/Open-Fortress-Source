@@ -1511,6 +1511,9 @@ void CTFPlayer::Regenerate( void )
 
 	if (m_Shared.InCond(TF_COND_POISON))
 		m_Shared.RemoveCond(TF_COND_POISON);
+
+	if (m_Shared.InCond(TF_COND_TRANQ))
+		m_Shared.RemoveCond(TF_COND_TRANQ);
 }
 
 //-----------------------------------------------------------------------------
