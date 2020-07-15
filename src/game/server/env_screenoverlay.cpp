@@ -240,6 +240,7 @@ void CEnvScreenEffect::Precache( void )
 {
 	PrecacheMaterial( "effects/stun" );
 	PrecacheMaterial( "effects/introblur" );
+	PrecacheMaterial("effects/poison/toxicoverlay");
 }
 
 //-----------------------------------------------------------------------------
