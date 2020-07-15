@@ -11,14 +11,18 @@
 #endif
 
 #include "tf_weaponbase_gun.h"
+#include "Sprite.h"
+#include "rope_shared.h"
+#include "beam_shared.h"
 
-#if defined( CLIENT_DLL )
+#ifdef CLIENT_DLL
 #define CTFShotgun C_TFShotgun
 #define CTFShotgun_Soldier C_TFShotgun_Soldier
 #define CTFShotgun_HWG C_TFShotgun_HWG
 #define CTFShotgun_Pyro C_TFShotgun_Pyro
 #define CTFScatterGun C_TFScatterGun
 #define CTFSuperShotgun C_TFSuperShotgun
+#define CTFEternalShotgun C_TFEternalShotgun
 #define CTFShotgun_Merc C_TFShotgun_Merc
 #define CTFCShotgunSB C_TFCShotgunSB
 #define CTFCShotgunDB C_TFCShotgunDB
@@ -63,6 +67,21 @@ private:
 	CTFShotgun( const CTFShotgun & ) {}
 };
 
+class CTFSuperShotgun : public CTFShotgun
+{
+public:
+	DECLARE_CLASS(CTFSuperShotgun, CTFShotgun);
+	DECLARE_NETWORKCLASS();
+	DECLARE_PREDICTABLE();
+
+	CTFSuperShotgun();
+
+	virtual int		GetWeaponID(void) const { return TF_WEAPON_SUPERSHOTGUN; }
+
+	virtual acttable_t *ActivityList(int &iActivityCount);
+	static acttable_t m_acttableSuperShotgun[];
+};
+
 // Scout version. Different models, possibly different behaviour later on
 class CTFScatterGun : public CTFShotgun
 {
@@ -72,21 +91,6 @@ public:
 	DECLARE_PREDICTABLE();
 
 	virtual int		GetWeaponID( void ) const			{ return TF_WEAPON_SCATTERGUN; }
-};
-
-class CTFSuperShotgun : public CTFShotgun
-{
-public:
-	DECLARE_CLASS(CTFSuperShotgun, CTFShotgun);
-	DECLARE_NETWORKCLASS();
-	DECLARE_PREDICTABLE();
-	
-	CTFSuperShotgun();
-
-	virtual int		GetWeaponID(void) const { return TF_WEAPON_SUPERSHOTGUN; }
-
-	virtual acttable_t *ActivityList(int &iActivityCount);
-	static acttable_t m_acttableSuperShotgun[];
 };
 
 class CTFCShotgunSB : public CTFShotgun
@@ -108,4 +112,89 @@ public:
 
 	virtual int		GetWeaponID( void ) const			{ return TFC_WEAPON_SHOTGUN_DB; }
 };
+
+//***************************************************************************
+//
+// ETERNAL GAMEMODE STUFF
+//
+//***************************************************************************
+
+class CTFEternalShotgun : public CTFSuperShotgun
+{
+public:
+	DECLARE_CLASS(CTFEternalShotgun, CTFSuperShotgun);
+	DECLARE_NETWORKCLASS();
+	DECLARE_PREDICTABLE();
+
+	CTFEternalShotgun();
+
+	int				GetWeaponID(void) const { return TF_WEAPON_ETERNALSHOTGUN; }
+
+	void			Precache(void);
+
+	void			PrimaryAttack();
+	void			SecondaryAttack();
+	void			ItemPostFrame();
+	void			RemoveHook(void);
+
+	bool			CanHolster(void) const;
+	void            Drop(const Vector &vecVelocity);
+
+	bool			CanSoftZoom(void) { return false; }
+
+#ifdef GAME_DLL
+	void			NotifyHookAttached(CTFPlayer *hooked = NULL);
+	void   			DrawBeam(const Vector &endPos, const float width = 2.f);
+#endif
+
+private:
+
+	void InitiateHook(CTFPlayer * pPlayer, CBaseEntity *hook);
+
+#ifdef GAME_DLL
+	CHandle<CBeam>				pBeam;
+	CNetworkHandle(CTFPlayer,	m_hHooked);		//server hook
+	CNetworkHandle(CBaseEntity, m_hHook);		//server hooked player
+#else
+	EHANDLE			m_hHook;					//client hook relay
+	EHANDLE			m_hHooked;					//client hooked player relay
+#endif
+
+	CNetworkVar(bool, m_bCanRefire);
+	CNetworkVar(int, m_iAttached);
+};
+
+#ifdef GAME_DLL
+class MeatHook : public CBaseCombatCharacter
+{
+	DECLARE_CLASS(MeatHook, CBaseCombatCharacter);
+
+public:
+
+	MeatHook(void) {}
+	~MeatHook(void);
+	void Spawn(void);
+	void Precache(void);
+	static MeatHook *HookCreate(const Vector &vecOrigin, const QAngle &angAngles, CBaseEntity *pentOwner = NULL);
+	CTFSuperShotgun *GetOwner(void) { return m_hOwner; }
+	bool HookLOS();
+
+	bool CreateVPhysics(void);
+	unsigned int PhysicsSolidMaskForEntity() const;
+	Class_T Classify(void) { return CLASS_NONE; }
+
+protected:
+
+	DECLARE_DATADESC();
+
+private:
+
+	void HookTouch(CBaseEntity *pOther);
+	void FlyThink(void);
+	
+	CTFEternalShotgun	*m_hOwner;
+	CTFPlayer			*m_hPlayer;
+};
+#endif
+
 #endif // TF_WEAPON_SHOTGUN_H

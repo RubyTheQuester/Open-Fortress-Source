@@ -6,23 +6,12 @@
 
 #include "cbase.h"
 #include "c_of_music_player.h"
-#include "c_tf_player.h"
 #include "tf_gamerules.h"
 #include "of_shared_schemas.h"
-#include "fmod_manager.h"
-
-// Imported from sounds	
-#include "stringregistry.h"
-#include <ctype.h>
-#include "igamesystem.h"
-#include "KeyValues.h"
-#include "filesystem.h"
 
 // Hud stuff
 #include "iclientmode.h"
 #include "vgui_controls/AnimationController.h"
-#include "tf_controls.h"
-#include "tf_imagepanel.h"
 #include <vgui/ISurface.h>
 #include <vgui/ILocalize.h>
 

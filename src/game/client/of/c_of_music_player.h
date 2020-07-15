@@ -6,13 +6,10 @@
 
 #include "fmod_manager.h"
 
-#include "saverestore_utlvector.h"
-
 // HUD
 #include <vgui/IScheme.h>
-#include "hud.h"
-#include "hudelement.h"
 #include "tf_controls.h"
+#include "hudelement.h"
 
 class C_TFMusicPlayer : public C_BaseEntity
 {
@@ -86,9 +83,6 @@ public:
 };
 
 extern C_TFDMMusicManager* DMMusicManager();
-
-class CTFImagePanel;
-class CExLabel;
 
 class CTFHudNowPlaying : public vgui::EditablePanel, public CHudElement
 {

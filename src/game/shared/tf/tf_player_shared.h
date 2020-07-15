@@ -9,7 +9,6 @@
 #pragma once
 #endif
 
-//#include "networkvar.h"
 #include "tf_shareddefs.h"
 #include "tf_weaponbase.h"
 
@@ -235,8 +234,6 @@ public:
 	bool	GetJumpBuffer() { return m_bBlockJump; }
 	void	SetCSlideDuration(float duration);
 	float	GetCSlideDuration() { return m_flCSlideDuration; }
-	void	SetRampJumpVel(float vel);
-	float	GetRampJumpVel() { return m_flRampJumpVel; }
 
 	// loser state
 	bool	IsLoser( void );

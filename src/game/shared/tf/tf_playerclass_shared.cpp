@@ -3,10 +3,7 @@
 //=============================================================================
 
 #include "cbase.h"
-#include "KeyValues.h"
 #include "tf_playerclass_shared.h"
-#include "materialsystem/imaterialsystemhardwareconfig.h"
-#include "tier2/tier2.h"
 
 ConVar of_airdashcount("of_airdashcount", "-1", FCVAR_NOTIFY | FCVAR_REPLICATED );
 

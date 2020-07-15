@@ -6,17 +6,13 @@
 
 #include "cbase.h"
 #include "tf_shareddefs.h"
-//#include "KeyValues.h"
-//#include "takedamageinfo.h"
 #include "tf_gamerules.h"
-//#include "bone_setup.h"
 
-#if defined( CLIENT_DLL )
-#include "c_team.h"
-//#include "c_tf_player.h"
-//#include "filesystem.h"
+#ifdef CLIENT_DLL
+	#include "c_team.h"
+	#include "filesystem.h"
 #else
-#include "team.h"
+	#include "team.h"
 #endif
 
 extern ConVar of_infiniteammo;
@@ -314,6 +310,7 @@ const char *g_aWeaponNames[] =
 	"TF_WEAPON_INVIS",
 	"TF_WEAPON_RAILGUN",
 	"TF_WEAPON_SUPERSHOTGUN",
+	"TF_WEAPON_ETERNALSHOTGUN",
 	"TF_WEAPON_PISTOL_MERCENARY",
 	"TF_WEAPON_REVOLVER_MERCENARY",
 	"TF_WEAPON_GATLINGGUN",
@@ -512,6 +509,7 @@ uint g_aWeaponDamageTypes[] =
 	DMG_GENERIC,	// TF_WEAPON_INVIS
 	DMG_BULLET | DMG_USE_HITLOCATIONS,	// TF_WEAPON_RAILGUN,
 	DMG_BUCKSHOT | DMG_USEDISTANCEMOD, //TF_WEAPON_SUPERSHOTGUN
+	DMG_BUCKSHOT | DMG_USEDISTANCEMOD, //TF_WEAPON_ETERNALSHOTGUN
 	DMG_BULLET  | DMG_USEDISTANCEMOD,	// TF_WEAPON_PISTOL_MERCENARY,
 	DMG_BULLET  | DMG_USEDISTANCEMOD,	// TF_WEAPON_REVOLVER_MERCENARY,
 	DMG_BULLET | DMG_USEDISTANCEMOD,		// TF_WEAPON_GATLINGGUN,

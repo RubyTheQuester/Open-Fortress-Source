@@ -4,18 +4,14 @@
 //
 //=============================================================================
 #include "cbase.h"
-#include "tf_gamerules.h"
 #include "tf_weapon_knife.h"
-#include "decals.h"
 
-// Client specific.
 #ifdef CLIENT_DLL
-#include "c_tf_player.h"
-// Server specific.
+	#include "c_tf_player.h"
 #else
-#include "tf_player.h"
-#include "tf_gamestats.h"
-#include "ilagcompensationmanager.h"
+	#include "tf_player.h"
+	#include "tf_gamestats.h"
+	#include "ilagcompensationmanager.h"
 #endif
 
 //=============================================================================
@@ -134,7 +130,7 @@ void CTFKnife::PrimaryAttack( void )
 
 	m_bReady = false;
 
-#ifndef CLIENT_DLL
+#ifdef GAME_DLL
 	pPlayer->RemoveInvisibility();
 	pPlayer->RemoveDisguise();
 #endif

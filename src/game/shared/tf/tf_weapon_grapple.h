@@ -21,6 +21,7 @@
 
 #ifdef CLIENT_DLL
 	#define CWeaponGrapple C_WeaponGrapple
+	#define CTFEternalShotgun C_TFEternalShotgun
 #else
 	#include "props.h"
 	#include "te_effect_dispatch.h"
@@ -38,38 +39,34 @@ public:
 
 	CWeaponGrapple( void );
 
-	virtual void    Precache( void );
-	virtual void    PrimaryAttack( void );
-	//virtual void    SecondaryAttack( void );
+	void			Precache( void );
+	void			PrimaryAttack( void );
 	bool            CanHolster( void );
-	virtual bool    Holster( CBaseCombatWeapon *pSwitchingTo = NULL );
 	void            Drop( const Vector &vecVelocity );
-	virtual bool    Reload( void );
-	virtual void    ItemPostFrame( void );
-
+	void			ItemPostFrame( void );
 	void			RemoveHook(void);
-	void            NotifyHookDied(void);
+	
+
+#ifdef GAME_DLL
 	void			NotifyHookAttached(void);
-
-	bool            HasAnyAmmo( void );
-
 	void   			DrawBeam(const Vector &endPos, const float width = 2.f);
-	void			DoImpactEffect( trace_t &tr, int nDamageType );
+	void			DoImpactEffect(trace_t &tr, int nDamageType);
+#endif
 
 	DECLARE_NETWORKCLASS(); 
 	DECLARE_PREDICTABLE();
 
 private:
 
+	void InitiateHook(CTFPlayer * pPlayer, CBaseEntity *hook);
+
 #ifdef GAME_DLL
-	CHandle<CBeam>		pBeam;
-	CHandle<CSprite>	m_pLightGlow;
-	CNetworkHandle(CBaseEntity, m_hHook);	//server hook
+	CHandle<CBeam>				pBeam;
+	CNetworkHandle(CBaseEntity, m_hHook);		//server hook
 #else
-	EHANDLE			m_hHook;				//client hook relay
+	EHANDLE						m_hHook;		//client hook relay
 #endif
 
-	CWeaponGrapple(const CWeaponGrapple &);
 	CNetworkVar(int, m_iAttached);
 	CNetworkVar(int, m_nBulletType);
 };
@@ -89,6 +86,7 @@ public:
     void Spawn( void );
     void Precache( void );
 	static CGrappleHook *HookCreate( const Vector &vecOrigin, const QAngle &angAngles, CBaseEntity *pentOwner = NULL );
+	bool HookLOS();
 
 	bool CreateVPhysics( void );
 	unsigned int PhysicsSolidMaskForEntity() const;
@@ -104,8 +102,8 @@ private:
 	void HookTouch( CBaseEntity *pOther );
 	void FlyThink( void );
   
-    CHandle<CWeaponGrapple>     m_hOwner;
-	CHandle<CTFPlayer>          m_hPlayer;
+	CWeaponGrapple		*m_hOwner;
+	CTFPlayer			*m_hPlayer;
 };
 #endif
 

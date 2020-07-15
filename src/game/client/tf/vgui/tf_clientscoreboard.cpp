@@ -6,35 +6,14 @@
 //=============================================================================//
 
 #include "cbase.h"
-
-#include <tier1/fmtstr.h>
-#include <vgui_controls/Label.h>
-#include <vgui_controls/Button.h>
-#include <vgui_controls/ImagePanel.h>
-#include <vgui_controls/RichText.h>
-#include <vgui_controls/Frame.h>
-#include <vgui/IScheme.h>
-#include <vgui/ILocalize.h>
-#include <vgui/ISurface.h>
-#include <vgui/IVGui.h>
 #include <vgui_controls/SectionedListPanel.h>
 #include <vgui_controls/ImageList.h>
-#include <game/client/iviewport.h>
-#include <KeyValues.h>
-#include <filesystem.h>
-#include "IGameUIFuncs.h" // for key bindings
-
-#include "tf_controls.h"
-#include "tf_shareddefs.h"
 #include "tf_clientscoreboard.h"
-#include "tf_gamestats_shared.h"
 #include "tf_hud_statpanel.h"
 #include "tf_gamerules.h"
-#include "c_playerresource.h"
 #include "c_tf_playerresource.h"
 #include "c_tf_team.h"
-#include "c_tf_player.h"
-#include "vgui_avatarimage.h"
+#include <vgui/ILocalize.h>
 
 #if defined ( _X360 )
 #include "engine/imatchmaking.h"

@@ -59,7 +59,7 @@ $Project "Client (Open Fortress)"
             }
 			
 			$File	"of\of_hud_speedometer.cpp"
-			$File	"of\of_hud_weaponwheel.cpp"
+			//$File	"of\of_hud_weaponwheel.cpp"
 			$File   "of\of_hud_keydisplay.cpp"
 			$File	"of\of_hud_account.cpp"
 			$File	"of\of_hud_account.h"
@@ -501,12 +501,8 @@ $Project "Client (Open Fortress)"
 			$File	"of\gameui\VMainMenu.cpp"
 			$File	"of\gameui\VSliderControl.cpp"
 			$File	"of\gameui\vmenubackground.cpp"
-			
-			$Folder "OF"
-			{
-				$File	"of\gameui\of\dm_loadout.h"				
-				$File	"of\gameui\of\dm_loadout.cpp"
-			}
+			$File	"of\gameui\dm_loadout.h"				
+			$File	"of\gameui\dm_loadout.cpp"
 		}
 	}
 	$Folder "Link Libraries"

@@ -62,6 +62,9 @@ CCondPowerup::CCondPowerup()
 
 void CCondPowerup::Spawn( void )
 {
+	if (TFGameRules()->IsDuelGamemode())
+		UTIL_Remove(this);
+
 	Precache();
 
 	if ( m_iszPowerupModel == MAKE_STRING( "" ) ) 
