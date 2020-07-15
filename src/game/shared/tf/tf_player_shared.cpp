@@ -1459,6 +1459,9 @@ void CTFPlayerShared::OnAddTranq(void)
 	if(!m_pOuter->m_Shared.m_flTranqEffects == 1)
 	{
 		m_pOuter->ParticleProp()->Create("sleepy_overhead", PATTACH_POINT_FOLLOW, "head");
+
+		if (m_pOuter->IsLocalPlayer() == true)
+			m_pOuter->StartTranqSound();
 	} 
 	else
 	{
@@ -1471,14 +1474,16 @@ void CTFPlayerShared::OnAddTranq(void)
 void CTFPlayerShared::OnRemoveTranq(void)
 {
 #ifdef CLIENT_DLL
+
 	if(!m_pOuter->m_Shared.m_flTranqEffects == 1)
-	{
+		{
 		m_pOuter->ParticleProp()->StopParticlesNamed("sleepy_overhead", true);
-	}
+		m_pOuter->StopTranqSound();
+		}
 	else
-	{
+		{
 		m_pOuter->ParticleProp()->StopParticlesNamed("mark_for_death", true);
-	}
+		}
 #endif
 	m_pOuter->TeamFortress_SetSpeed();
 }
@@ -1738,10 +1743,8 @@ void CTFPlayerShared::OnRemovePoison(void)
 #ifdef CLIENT_DLL
 	if (m_pOuter->IsLocalPlayer())
 		view->SetScreenOverlayMaterial(NULL);
-	m_pOuter->ParticleProp()->StopParticlesNamed("poison_overhead", true);
+		m_pOuter->ParticleProp()->StopParticlesNamed("poison_overhead", true);
 
-	m_pOuter->m_flPoisonEffectStartTime = 0.f;
-	m_pOuter->m_flPoisonEffectEndTime = 0.f;
 #else
 	m_hPoisonAttacker = NULL;
 #endif
@@ -1917,9 +1920,13 @@ void CTFPlayerShared::OnAddPoison(void)
 		IMaterial *pMaterial = materials->FindMaterial("effects/poison/toxicoverlay", TEXTURE_GROUP_CLIENT_EFFECTS, false);
 		if (!IsErrorMaterial(pMaterial))
 			view->SetScreenOverlayMaterial(pMaterial);
+
+		C_BasePlayer *pLocal = C_BasePlayer::GetLocalPlayer();
+			pLocal->EmitSound("PlayerMedkitInfected");
 	}
 
 	m_pOuter->ParticleProp()->Create("poison_overhead", PATTACH_POINT_FOLLOW, "head");
+
 #endif
 }
 

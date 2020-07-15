@@ -2569,6 +2569,7 @@ C_TFPlayer::C_TFPlayer() :
 
 	m_pTeleporterEffect = NULL;
 	m_pBurningSound = NULL;
+	m_pTranqSound = NULL;
 	m_pBurningEffect = NULL;
 	m_flBurnEffectStartTime = 0;
 	m_flBurnEffectEndTime = 0;
@@ -2767,6 +2768,10 @@ void C_TFPlayer::SetDormant( bool bDormant )
 		if ( m_pBurningSound ) 
 		{
 			StopBurningSound();
+		}
+		if (m_pTranqSound)
+		{
+			StopTranqSound();
 		}
 		if ( m_bIsDisplayingNemesisIcon )
 		{
@@ -3086,7 +3091,6 @@ void C_TFPlayer::StartBurningSound( void )
 	controller.Play( m_pBurningSound, 0.0, 100 );
 	controller.SoundChangeVolume( m_pBurningSound, 1.0, 0.1 );
 }
-
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -3096,6 +3100,33 @@ void C_TFPlayer::StopBurningSound( void )
 	{
 		CSoundEnvelopeController::GetController().SoundDestroy( m_pBurningSound );
 		m_pBurningSound = NULL;
+	}
+}
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void C_TFPlayer::StartTranqSound(void)
+{
+	CSoundEnvelopeController &controller = CSoundEnvelopeController::GetController();
+
+	if (!m_pTranqSound)
+	{
+		CLocalPlayerFilter filter;
+		m_pTranqSound = controller.SoundCreate(filter, entindex(), "PlayerTranqed");
+	}
+
+	controller.Play(m_pTranqSound, 0.0, 100);
+	controller.SoundChangeVolume(m_pTranqSound, 1.0, 0.1);
+}
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void C_TFPlayer::StopTranqSound(void)
+{
+	if (m_pTranqSound)
+	{
+		CSoundEnvelopeController::GetController().SoundDestroy(m_pTranqSound);
+		m_pTranqSound = NULL;
 	}
 }
 
