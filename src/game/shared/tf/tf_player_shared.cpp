@@ -17,6 +17,7 @@
 #ifdef CLIENT_DLL
 	#include "c_tf_playerclass.h"
 	#include "iviewrender.h"
+	#include "viewpostprocess.h"
 
 	#define CTFPlayerClass C_TFPlayerClass
 #else
@@ -1730,6 +1731,7 @@ void CTFPlayerShared::OnRemovePoison(void)
 	if (m_pOuter->IsLocalPlayer())
 		view->SetScreenOverlayMaterial(NULL);
 		m_pOuter->ParticleProp()->StopParticlesNamed("poison_overhead", true);
+		SetPoisonEffectEnabled(false);
 
 #else
 	m_hPoisonAttacker = NULL;
@@ -1903,6 +1905,8 @@ void CTFPlayerShared::OnAddPoison(void)
 	// set the poison screen overlay
 	if (m_pOuter->IsLocalPlayer())
 	{
+		SetPoisonEffectEnabled(true);
+
 		IMaterial *pMaterial = materials->FindMaterial("effects/poison/toxicoverlay", TEXTURE_GROUP_CLIENT_EFFECTS, false);
 		if (!IsErrorMaterial(pMaterial))
 			view->SetScreenOverlayMaterial(pMaterial);

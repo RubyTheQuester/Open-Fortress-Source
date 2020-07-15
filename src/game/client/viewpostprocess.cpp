@@ -96,6 +96,13 @@ ConVar mat_fullbright( "mat_fullbright", "0", FCVAR_CHEAT );
 
 extern ConVar localplayer_visionflags;
 
+#ifdef OF_CLIENT_DLL
+	static bool g_bLocalPlayerPoisoned = false;
+	void SetPoisonEffectEnabled(bool enabled)
+	{
+		g_bLocalPlayerPoisoned = enabled;
+	}
+#endif
 enum PostProcessingCondition {
 	PPP_ALWAYS,
 	PPP_IF_COND_VAR,
@@ -2663,6 +2670,17 @@ void DoEnginePostProcessing( int x, int y, int w, int h, bool bFlashlightIsOn, b
 		}
 	}
 
+	if (g_bLocalPlayerPoisoned)
+	{
+		static IMaterial *pMat = materials->FindMaterial("effects/poison/toxicoverlay", TEXTURE_GROUP_OTHER);
+		if (pMat)
+		{
+			UpdateScreenEffectTexture();
+			pRenderContext->DrawScreenSpaceRectangle(pMat, 0, 0, w, h,
+				0, 0, w - 1, h - 1,
+				w, h);
+		}
+	}
 #if defined( _X360 )
 	pRenderContext->PopVertexShaderGPRAllocation();
 #endif
