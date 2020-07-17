@@ -362,11 +362,11 @@ const char *GetTranqTrailParticleName(int iTeamNumber, bool bCritical)
 {
 	if (iTeamNumber == TF_TEAM_BLUE)
 	{
-		return (bCritical ? "nailtrails_medic_blue_crit" : "nailtrails_medic_blue");
+		return (bCritical ? "nailtrails_super_blue_crit" : "nailtrails_super_blue");
 	}
 	else if (iTeamNumber == TF_TEAM_RED)
 	{
-		return (bCritical ? "nailtrails_medic_red_crit" : "nailtrails_medic_red");
+		return (bCritical ? "nailtrails_super_red_crit" : "nailtrails_super_red");
 	}
 	else
 	{

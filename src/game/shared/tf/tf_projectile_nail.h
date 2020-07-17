@@ -67,7 +67,7 @@ public:
 	CTFProjectile_Tranq();
 	~CTFProjectile_Tranq();
 
-	// Creation.
+	// Creation. 
 	static CTFProjectile_Tranq *Create(const Vector &vecOrigin, const QAngle &vecAngles, CBaseEntity *pOwner = NULL, CBaseEntity *pScorer = NULL, int bCritical = false);
 
 	virtual const char *GetProjectileModelName(void);
