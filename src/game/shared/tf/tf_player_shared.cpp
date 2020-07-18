@@ -2682,11 +2682,6 @@ void CTFPlayerShared::SetCSlideDuration(float duration)
 	m_flCSlideDuration = duration;
 }
 
-void CTFPlayerShared::SetRampJumpVel(float vel)
-{
-	m_flRampJumpVel = vel;
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
