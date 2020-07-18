@@ -873,7 +873,6 @@ void CTFPlayer::Precache()
 	// needed to suppress console spam about weapon spawners
 	PrecacheMaterial( "VGUI/flagtime_full" );
 	PrecacheMaterial( "VGUI/flagtime_empty" );
-	PrecacheMaterial("effects/poison/toxicoverlay");
 
 	BaseClass::Precache();
 }

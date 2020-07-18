@@ -17,8 +17,6 @@
 #ifdef CLIENT_DLL
 	#include "c_tf_playerclass.h"
 	#include "iviewrender.h"
-	#include "viewpostprocess.h"
-
 	#define CTFPlayerClass C_TFPlayerClass
 #else
 	#include "te_effect_dispatch.h"
@@ -73,8 +71,6 @@ ConVar of_haste_movespeed_multplier("of_haste_movespeed_multplier", "1.5",FCVAR_
 
 #define TF_SPY_STEALTH_BLINKTIME   0.3f
 #define TF_SPY_STEALTH_BLINKSCALE  0.85f
-
-#define OF_SPEED_REDUCTION 0.5f
 
 #define COND_FIRST_POWERUP TF_COND_BERSERK
 #define COND_LAST_POWERUP TF_COND_JAUGGERNAUGHT
